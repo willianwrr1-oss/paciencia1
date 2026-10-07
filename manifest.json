@@ -1,17 +1,25 @@
 {
-  "name": "Paciência XP",
+  "name": "Paciência XP Pro",
   "short_name": "Paciência",
-  "description": "Jogo Paciência clássico do Windows XP para Android",
+  "description": "Jogo Paciência clássico do Windows XP",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#008080",
   "theme_color": "#000080",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "./icon.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
