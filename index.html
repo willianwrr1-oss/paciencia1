@@ -2,66 +2,80 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Gerador de Ícone Paciência XP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>Paciência XP Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000080">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
-  <canvas id="iconCanvas" width="512" height="512" style="display:none;"></canvas>
+  <div id="game-container">
+    <div class="xp-menu-bar">
+      <div class="menu-item" id="btn-new-game">Jogo</div>
+      <div class="menu-item" id="btn-settings">Opções & Sobre</div>
+    </div>
+
+    <div id="board">
+      <div class="top-row">
+        <div class="stock-waste">
+          <div id="stock" class="card-slot"></div>
+          <div id="waste" class="card-slot"></div>
+        </div>
+        <div class="foundations">
+          <div id="foundation-0" class="card-slot foundation" data-suit="h"></div>
+          <div id="foundation-1" class="card-slot foundation" data-suit="d"></div>
+          <div id="foundation-2" class="card-slot foundation" data-suit="c"></div>
+          <div id="foundation-3" class="card-slot foundation" data-suit="s"></div>
+        </div>
+      </div>
+
+      <div class="tableau">
+        <div id="tableau-0" class="card-slot tableau-column"></div>
+        <div id="tableau-1" class="card-slot tableau-column"></div>
+        <div id="tableau-2" class="card-slot tableau-column"></div>
+        <div id="tableau-3" class="card-slot tableau-column"></div>
+        <div id="tableau-4" class="card-slot tableau-column"></div>
+        <div id="tableau-5" class="card-slot tableau-column"></div>
+        <div id="tableau-6" class="card-slot tableau-column"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Configurações e Sobre -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="xp-window">
+      <div class="xp-title-bar">
+        <span>Configurações & Sobre</span>
+        <button id="btn-close-modal" class="xp-close-btn">X</button>
+      </div>
+      <div class="xp-window-body">
+        <div class="info-box">
+          <h3>Paciência Windows XP</h3>
+          <p><strong>Desenvolvido por:</strong> Willian R Rocha</p>
+          <p><strong>Contato:</strong> willian.wrr1@gmail.com</p>
+          <p><strong>Versão do aplicativo:</strong> <span id="app-version">1.1.0</span></p>
+          <p><strong>Data da versão:</strong> <span id="app-build-date"></span></p>
+        </div>
+        <hr>
+        <div class="options-box">
+          <label>
+            <input type="checkbox" id="setting-draw-three"> Comprar 3 cartas por vez
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
   <script>
-    const canvas = document.getElementById("iconCanvas");
-    const ctx = canvas.getContext("2d");
-
-    // Fundo Verde Feltro/XP
-    ctx.fillStyle = "#008080";
-    ctx.fillRect(0, 0, 512, 512);
-
-    // Borda da Carta (Arredondada)
-    const x = 96, y = 48, w = 320, h = 416, r = 24;
-    ctx.fillStyle = "#ffffff";
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
-    ctx.closePath();
-    ctx.fill();
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = 4;
-    ctx.stroke();
-
-    // Verso Azul Clássico do XP
-    const ix = 112, iy = 64, iw = 288, ih = 384, ir = 16;
-    ctx.fillStyle = "#000080";
-    ctx.beginPath();
-    ctx.moveTo(ix + ir, iy);
-    ctx.arcTo(ix + iw, iy, ix + iw, iy + ih, ir);
-    ctx.arcTo(ix + iw, iy + ih, ix, iy + ih, ir);
-    ctx.arcTo(ix, iy + ih, ix, iy, ir);
-    ctx.arcTo(ix, iy, ix + iw, iy, ir);
-    ctx.closePath();
-    ctx.fill();
-
-    // Padronagem Interna
-    ctx.strokeStyle = "#5a82d6";
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    // Desenhar A do Ás no Centro
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 140px 'Segoe UI', Tahoma, sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("♠", 256, 230);
-    ctx.font = "bold 90px 'Segoe UI', Tahoma, sans-serif";
-    ctx.fillText("XP", 256, 340);
-
-    // Baixar imagem como icon.png
-    setTimeout(() => {
-      const link = document.createElement('a');
-      link.download = 'icon.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }, 300);
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration failed: ', err));
+      });
+    }
   </script>
 </body>
 </html>
