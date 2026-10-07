@@ -8,10 +8,11 @@
 
 body {
   background-color: #008080;
-  font-family: "Tahoma", "Segoe UI", sans-serif;
+  font-family: "Tahoma", "Segoe UI", Geneva, Verdana, sans-serif;
   overflow: hidden;
   height: 100vh;
   width: 100vw;
+  touch-action: manipulation;
 }
 
 #game-container {
@@ -24,12 +25,13 @@ body {
   background: #ece9d8;
   border-bottom: 1px solid #91908a;
   display: flex;
-  padding: 2px 5px;
+  padding: 3px 6px;
   font-size: 13px;
+  box-shadow: inset 0 -1px 0 #fff;
 }
 
 .menu-item {
-  padding: 3px 8px;
+  padding: 2px 8px;
   cursor: pointer;
   border: 1px solid transparent;
 }
@@ -41,10 +43,10 @@ body {
 
 #board {
   flex: 1;
-  padding: 10px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   position: relative;
 }
 
@@ -55,7 +57,7 @@ body {
 
 .stock-waste, .foundations {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tableau {
@@ -65,42 +67,114 @@ body {
 }
 
 .card-slot {
-  width: 12vw;
-  max-width: 75px;
-  height: 17vw;
-  max-height: 105px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 13.2vw;
+  max-width: 82px;
+  height: 18.5vw;
+  max-height: 115px;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
   border-radius: 4px;
   position: relative;
 }
 
+/* Design Autêntico das Cartas */
 .card {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  background: white;
-  border: 1px solid #000;
+  background: #ffffff;
+  border: 1px solid #1a1a1a;
   position: absolute;
   top: 0;
   left: 0;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 3px;
-  font-weight: bold;
-  font-size: 14px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-  touch-action: none;
+  padding: 2px 3px;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
+.card.red { color: #d00000; }
+.card.black { color: #000000; }
+
+.card-corner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.9;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.card-corner.top-left {
+  align-self: flex-start;
+}
+
+.card-corner.bottom-right {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.card-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+/* Ilustrações e Símbolos Centrais */
+.figure-art {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fdfbf7;
+}
+
+.figure-art svg {
+  width: 85%;
+  height: 85%;
+}
+
+.pip-grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  font-size: 14px;
+}
+
+/* Verso da Carta XP */
 .card.back {
   background: #000080;
-  background-image: repeating-linear-gradient(45deg, #000080, #000080 5px, #1a1a99 5px, #1a1a99 10px);
-  border: 2px solid #fff;
+  border: 2px solid #ffffff;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  position: absolute;
 }
 
-.card.red { color: #d00; }
-.card.black { color: #000; }
+.card.back::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid #5a82d6;
+  background: repeating-linear-gradient(
+    45deg,
+    #000080,
+    #000080 4px,
+    #1122aa 4px,
+    #1122aa 8px
+  );
+}
 
 .tableau-column .card {
   position: absolute;
@@ -126,9 +200,9 @@ body {
   background: #ece9d8;
   border: 3px solid #0055ea;
   border-radius: 5px 5px 0 0;
-  width: 90%;
-  max-width: 360px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  width: 88%;
+  max-width: 350px;
+  box-shadow: 3px 3px 12px rgba(0,0,0,0.5);
 }
 
 .xp-title-bar {
