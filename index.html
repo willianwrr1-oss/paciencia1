@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Paciência XP</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000080">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <div id="game-container">
+    <div class="xp-menu-bar">
+      <div class="menu-item" id="btn-new-game">Jogo</div>
+      <div class="menu-item" id="btn-settings">Opções & Sobre</div>
+    </div>
+
+    <div id="board">
+      <div class="top-row">
+        <div class="stock-waste">
+          <div id="stock" class="card-slot"></div>
+          <div id="waste" class="card-slot"></div>
+        </div>
+        <div class="foundations">
+          <div id="foundation-0" class="card-slot foundation" data-suit="h"></div>
+          <div id="foundation-1" class="card-slot foundation" data-suit="d"></div>
+          <div id="foundation-2" class="card-slot foundation" data-suit="c"></div>
+          <div id="foundation-3" class="card-slot foundation" data-suit="s"></div>
+        </div>
+      </div>
+
+      <div class="tableau">
+        <div id="tableau-0" class="card-slot tableau-column"></div>
+        <div id="tableau-1" class="card-slot tableau-column"></div>
+        <div id="tableau-2" class="card-slot tableau-column"></div>
+        <div id="tableau-3" class="card-slot tableau-column"></div>
+        <div id="tableau-4" class="card-slot tableau-column"></div>
+        <div id="tableau-5" class="card-slot tableau-column"></div>
+        <div id="tableau-6" class="card-slot tableau-column"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings-modal" class="modal hidden">
+    <div class="xp-window">
+      <div class="xp-title-bar">
+        <span>Configurações & Sobre</span>
+        <button id="btn-close-modal" class="xp-close-btn">X</button>
+      </div>
+      <div class="xp-window-body">
+        <div class="info-box">
+          <h3>Paciência Windows XP</h3>
+          <p><strong>Desenvolvido por:</strong> Willian R Rocha</p>
+          <p><strong>Contato:</strong> willian.wrr1@gmail.com</p>
+          <p><strong>Versão do aplicativo:</strong> <span id="app-version">1.0.0</span></p>
+          <p><strong>Data da versão:</strong> <span id="app-build-date"></span></p>
+        </div>
+        <hr>
+        <div class="options-box">
+          <label>
+            <input type="checkbox" id="setting-draw-three"> Comprar 3 cartas por vez
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration failed: ', err));
+      });
+    }
+  </script>
+</body>
+</html>
